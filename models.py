@@ -30,7 +30,8 @@ class Books:
             json.dump(self.books, f)
 
     def update(self, id, data):
-        data.pop('csrf_token')
+        if data.get('csrf_token'):
+            data.pop('csrf_token')
         self.books[id] = data
         self.save_all()
 
