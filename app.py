@@ -81,24 +81,7 @@ def delete_book(book_id):
         abort(404)
     return jsonify({'result': result})
 
-"""
-Nie mogę dojść, gdzie jest błąd przy metodzie PUT (pod komentarzem). Robię testy wykonując poniższy request:
 
-PUT http://127.0.0.1:5000/api/books/2
-
-{
-    "title": "Poćwicz",
-    "author": "Poćwiczy",
-    "description": "Poćwiczym",
-    "number_of_pages": 100,
-    "read": true,
-}
-
-Całość wywala się już tutaj:
-if not request.json:
-        abort(400)
-
-"""
 
 
 @app.route("/api/books/<int:book_id>", methods=["PUT"])
@@ -108,7 +91,7 @@ def update_book(book_id):
         abort(404)
     if not request.json:
         abort(400)
-    print("tego mi już nie drukuje")
+    
     data = request.json
     if any([
         'title' in data and not isinstance(data.get('title'), str),
@@ -118,7 +101,7 @@ def update_book(book_id):
         'read' in data and not isinstance(data.get('read'), bool)
     ]):
         abort(400)
-    print("a tego to już w ogóle")  
+    
     book = {
         'title': data.get('title', book['title']),
         'author': data.get('author', book['author']),
